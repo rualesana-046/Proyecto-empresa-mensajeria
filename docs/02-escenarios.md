@@ -1,6 +1,6 @@
 # 02 · Escenarios de calidad
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 Formato de seis partes. Las medidas "obtenidas" salen de ejecuciones reales de `npm run demo`, `npm run chaos` y `npm run escala` (ver README).
 

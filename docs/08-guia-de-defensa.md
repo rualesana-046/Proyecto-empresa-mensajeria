@@ -1,6 +1,6 @@
 # 08 · Guía de defensa (BORRADOR)
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 >
 > **⚠ Esto es un borrador.** Está escrito para que el equipo entienda cada decisión, no para leerlo en voz alta. **Reescriban cada respuesta con sus propias palabras** y verifiquen cada cifra corriendo ustedes mismos `npm run demo`, `npm run chaos` y `npm run escala`. Si una respuesta no la pueden explicar sin mirar el papel, todavía no es suya.
 

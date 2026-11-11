@@ -1,11 +1,11 @@
 # ADR-002 · Cobro contra entrega sin pérdida ni duplicado
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 ## 1. Título y estado
 
 **Outbox transaccional + registro de la intención en la base de Cobros + trabajador con reintentos y alquiler + llave de idempotencia ante la pasarela.**
-Estado: **Aceptada**. Fecha: [FECHA].
+Estado: **Aceptada**. Fecha: 12 de noviembre de 2026.
 
 ## 2. Contexto
 
@@ -36,7 +36,7 @@ Un envío `NO_ENTREGADO` nunca genera cobro porque Cobros **no se suscribe** a `
 | Alternativa                                                                       | Razón concreta del descarte                                                                                                                                                                                                                                                                                                                                                            |
 | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Cobrar dentro del manejador del evento** y confiar en los reintentos del broker | Es el diseño que falló en el prototipo: al agotar `maxAttempts` el mensaje va a `ev:dead` y la deuda se pierde. Con la pasarela fallando el 50 % de los intentos (vista del cliente), 5 entregas dejan ≈ 3 % de cobros perdidos (calculado), y una caída de la pasarela de un minuto pierde todos los de ese minuto. Además ata la duración del manejador a la latencia de un tercero. |
-| **Transacción distribuida / 2PC** entre Envíos, Cobros y la pasarela              | La pasarela externa no participa en un protocolo de dos fases; Redis Streams tampoco. Aun entre nuestras bases, un coordinador 2PC bloquea recursos mientras espera y es un punto único de falla. Desproporcionado para un equipo de 3.                                                                                                                                                |
+| **Transacción distribuida / 2PC** entre Envíos, Cobros y la pasarela              | La pasarela externa no participa en un protocolo de dos fases; Redis Streams tampoco. Aun entre nuestras bases, un coordinador 2PC bloquea recursos mientras espera y es un punto único de falla. Desproporcionado para un equipo de 2.                                                                                                                                                |
 | **Llamada síncrona de Envíos a Cobros** al marcar entregado                       | Si Cobros no responde, Envíos tiene que fallar la entrega o seguir sin cobrar. Acopla la disponibilidad de la entrega a la del cobro y obliga a Envíos a reintentar, que no es su responsabilidad.                                                                                                                                                                                     |
 
 ## 5. Consecuencias

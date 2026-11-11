@@ -1,11 +1,11 @@
 # ADR-003 · Redis Streams como broker de mensajes
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 ## 1. Título y estado
 
 **Redis Streams con grupos de consumo, confirmación explícita (`XACK`), recuperación de pendientes (`XAUTOCLAIM`), cola de mensajes muertos (`ev:dead`) y persistencia AOF (`appendfsync everysec`).**
-Estado: **Aceptada**. Fecha: [FECHA].
+Estado: **Aceptada**. Fecha: 12 de noviembre de 2026.
 
 ## 2. Contexto
 
@@ -14,7 +14,7 @@ ADR-001 exige un broker persistente con:
 - **Varios consumidores independientes por evento** (D1, D2): `envio.entregado` lo leen Asignación, Cobros y Notificaciones.
 - **Consumidores competidores** dentro de un mismo servicio (D3): réplicas de `asignacion` que se reparten los eventos.
 - **Confirmación explícita y reentrega** si un consumidor muere sin confirmar (D2).
-- Restricción: equipo de 3 personas, un semestre, todo debe arrancar con un `docker compose up`.
+- Restricción: equipo de 2 personas, un semestre, todo debe arrancar con un `docker compose up`.
 
 ## 3. Decisión
 

@@ -1,6 +1,6 @@
 # 09 · Convenciones de código
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 Resumen de las reglas que sigue el código. Respetarlas al modificarlo.
 

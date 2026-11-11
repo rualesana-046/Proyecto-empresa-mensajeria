@@ -351,8 +351,10 @@ Aplicadas el 2026-11-10, a petición del equipo. Las tablas de arriba se dejan c
 | 10. 13 JSDoc redundantes                  | Reescritos para decir algo que el nombre no dice (por qué existe la función o qué decisión encierra).                                                                                                                                                                                                                                                          | `shared/*`, `services/*/rutas.js`, `scripts/lib/*`                              |
 | 11. Build en frío                         | Se borraron solo las imágenes de este proyecto y se reconstruyó con `--no-cache --pull`: **7/7 healthy en 22 s**; demo exit 0 después.                                                                                                                                                                                                                         | README, guía                                                                    |
 
-**Sigue abierto (solo los estudiantes):** reescribir la guía de defensa con sus palabras, llenar 13 `[NOMBRE`, 13 `[GRUPO` y 3 `[FECHA`, crear el repositorio git y subirlo, confirmar con el docente la interpretación del rol del operador y ensayar la demo.
+**Sigue abierto (solo los estudiantes):** reescribir la guía de defensa con sus palabras, crear el repositorio git y subirlo, confirmar con el docente la interpretación del rol del operador y ensayar la demo.
 
 **Sigue sin verificar:** `scripts/dev-local.sh` en esta ronda, los experimentos de R1, R2, R5, R7, R8 y R9, y E5 (cambio de pasarela).
 
 **Avisos menores que quedan:** 13 avisos de `max-lines-per-function` (25), casi todos fábricas con funciones internas cortas y funciones de los scripts de demo. `crearSuscripcion` (38) sigue por encima del ideal por el objeto de contexto.
+
+**Placeholders (2026-11-11):** llenados los 13 encabezados con los dos integrantes y el grupo 5B, y la fecha de los 3 ADR (12 de noviembre de 2026). Las menciones de "equipo de 3" pasaron a "equipo de 2".

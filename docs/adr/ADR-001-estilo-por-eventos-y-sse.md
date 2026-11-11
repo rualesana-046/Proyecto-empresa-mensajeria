@@ -1,18 +1,18 @@
 # ADR-001 · Microservicios orientados a eventos y SSE hacia el cliente
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 ## 1. Título y estado
 
 **Microservicios pequeños comunicados por eventos en un broker persistente, con SSE hacia el cliente.**
-Estado: **Aceptada**. Fecha: [FECHA].
+Estado: **Aceptada**. Fecha: 12 de noviembre de 2026.
 
 ## 2. Contexto
 
 - **D2** (A, A): ningún cobro contra entrega puede perderse ni duplicarse aunque caiga un servicio. Es la única hoja (A, A) del árbol de utilidad.
 - **D1** (A, M): cada cambio de estado debe llegar al cliente en menos de 3 s.
 - **D3** (A, M): la asignación debe crecer de 100 a 1.000 envíos/día sin rediseño; lo difícil es la concurrencia, no el volumen (≈ 0,01 envíos/s).
-- Restricciones: equipo de 3 personas, un semestre, stack Node.js + Redis + PostgreSQL.
+- Restricciones: equipo de 2 personas, un semestre, stack Node.js + Redis + PostgreSQL.
 
 La pregunta es cómo partir el sistema y cómo se comunican las partes para que **la caída de una parte no pierda el cobro** (D2) y **el cliente vea los cambios casi al instante** (D1).
 

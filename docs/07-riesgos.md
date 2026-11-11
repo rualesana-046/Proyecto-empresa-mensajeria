@@ -1,6 +1,6 @@
 # 07 · Riesgos
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 Probabilidad (P) e impacto (I) en escala Alta / Media / Baja. "Qué verificar" es el experimento concreto que permitiría descartarlo o confirmarlo.
 

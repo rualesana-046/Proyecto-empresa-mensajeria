@@ -1,6 +1,6 @@
 # 04 · Contextos delimitados
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 Cada contexto es **un servicio, un proceso y (si guarda datos) una base propia**. Ningún servicio lee la base de otro: lo que necesita de otro contexto lo aprende **por eventos**.
 

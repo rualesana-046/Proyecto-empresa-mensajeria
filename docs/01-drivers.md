@@ -1,6 +1,6 @@
 # 01 · Drivers y árbol de utilidad
 
-> Proyecto de Arquitectura de Software · [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Proyecto de Arquitectura de Software · Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 ## Los tres drivers principales y de dónde salen
 
@@ -70,5 +70,5 @@ Por qué cada valor:
 | --------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Pasarela de pagos externa: puede fallar (503), tardar o cobrar y no responder; acepta **llave de idempotencia** | Técnica externa      | Obliga a timeouts, reintentos y a usar la misma llave en cada reintento (ADR-002).                                                                                                                                                         |
 | **Ley 1581 de 2012** (protección de datos personales, Colombia): se manejan nombres y direcciones               | Legal / cumplimiento | Se documenta como restricción; el esqueleto **no** implementa autorización del titular, cifrado ni retención. Sí se minimiza el dato: a la pasarela solo viajan monto, id del envío y llave; los eventos llevan dirección pero no nombres. |
-| Equipo de 3 estudiantes, un semestre                                                                            | Organizacional       | Se evita Kafka/Kubernetes; se elige un stack pequeño y conocido.                                                                                                                                                                           |
+| Equipo de 2 estudiantes, un semestre                                                                            | Organizacional       | Se evita Kafka/Kubernetes; se elige un stack pequeño y conocido.                                                                                                                                                                           |
 | Stack acordado: Node.js 22, Express, Redis Streams, PostgreSQL, Docker Compose                                  | Técnica acordada     | Fija el broker (ADR-003) y el lenguaje.                                                                                                                                                                                                    |

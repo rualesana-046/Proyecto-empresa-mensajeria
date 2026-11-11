@@ -1,6 +1,6 @@
 # Logística de mensajería · Esqueleto funcional por eventos
 
-> Proyecto de Arquitectura de Software · [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Proyecto de Arquitectura de Software · Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 Esqueleto (_walking skeleton_) de una empresa de mensajería: recibe envíos, los asigna a mensajeros por zona y capacidad, sigue su estado y cobra contra entrega. Demuestra la decisión arquitectónica: **microservicios orientados a eventos sobre Redis Streams, una base PostgreSQL por servicio y SSE hacia el cliente**.
 

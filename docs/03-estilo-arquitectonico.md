@@ -1,6 +1,6 @@
 # 03 · Estilo arquitectónico
 
-> [NOMBRE 1], [NOMBRE 2], [NOMBRE 3] · [GRUPO 5A/5B]
+> Ana María Ruales, Santiago Nicolás Revelo · Grupo 5B
 
 ## Estilo elegido
 
@@ -32,7 +32,7 @@
 
 Escala: ✔ cumple bien · ~ cumple con esfuerzo extra · ✘ no cumple o pone en riesgo.
 
-| Alternativa                                 | D1 (< 3 s)                       | D2 (cobro exacto)                                                                                                                                                            | D3 (crecer, concurrencia)                                               | Costo (equipo de 3, un semestre)                |
+| Alternativa                                 | D1 (< 3 s)                       | D2 (cobro exacto)                                                                                                                                                            | D3 (crecer, concurrencia)                                               | Costo (equipo de 2, un semestre)                |
 | ------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------- |
 | **A) Monolito en capas**                    | ✔ con SSE desde el mismo proceso | ~ una transacción local ayuda, pero **la llamada a la pasarela queda dentro de la petición**: si el proceso cae a mitad, no hay quién reintente sin construir igual una cola | ~ se escala el monolito entero; la asignación compite con todo lo demás | ✔ el más barato                                 |
 | **B) Monolito modular con cola interna**    | ✔                                | ~ mejora A si la cola es persistente (tabla), pero un fallo del proceso detiene **todo**: entregas y cobros juntos                                                           | ~ los módulos no se escalan por separado                                | ✔ barato; **la alternativa más seria** (ver 08) |
