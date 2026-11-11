@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seguimiento de envío</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 720px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        font-family: monospace;
+      }
+      li {
+        margin: 0.3rem 0;
+        font-family: monospace;
+      }
+      .historico {
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Seguimiento en vivo (SSE)</h1>
+    <p>Pega el id del envío. Cada cambio llega empujado por el servidor, sin recargar.</p>
+    <input id="envio" placeholder="id del envío (UUID)" />
+    <ul id="eventos"></ul>
+    <script>
+      const campo = document.getElementById('envio');
+      const lista = document.getElementById('eventos');
+      let fuente;
+
+      function mostrar(evento) {
+        const item = document.createElement('li');
+        const origen = evento.historico ? 'historial' : `${evento.latenciaMs} ms`;
+        item.textContent = `${new Date(evento.ts).toLocaleTimeString()}  ${evento.type}  ${evento.estado}  (${origen})`;
+        if (evento.historico) item.className = 'historico';
+        lista.appendChild(item);
+      }
+
+      campo.addEventListener('change', () => {
+        fuente?.close();
+        lista.replaceChildren();
+        fuente = new EventSource(`/seguimiento/${campo.value.trim()}/stream`);
+        fuente.onmessage = (mensaje) => mostrar(JSON.parse(mensaje.data));
+      });
+    </script>
+  </body>
+</html>

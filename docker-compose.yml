@@ -1,0 +1,119 @@
+# Credenciales SOLO de desarrollo: no reutilizar en ningún entorno real
+x-postgres-dev: &postgres-dev
+  PGHOST: postgres
+  PGUSER: mensajeria_dev
+  PGPASSWORD: mensajeria_dev_solo_local
+
+x-servicio: &servicio
+  build: .
+  image: mensajeria-esqueleto:dev
+  restart: unless-stopped
+  depends_on:
+    redis:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+x-chequeo-http: &chequeo-http
+  interval: 3s
+  timeout: 2s
+  retries: 20
+
+services:
+  redis:
+    image: redis:7.4-alpine
+    command: ['redis-server', '--appendonly', 'yes', '--appendfsync', 'everysec']
+    ports: ['6379:6379']
+    volumes: ['redis-datos:/data']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
+      timeout: 2s
+      retries: 20
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: mensajeria_dev
+      POSTGRES_PASSWORD: mensajeria_dev_solo_local
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-datos:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      # Por TCP y contra la última base creada: durante init.sql el servidor solo escucha por socket
+      test: ['CMD', 'pg_isready', '-h', '127.0.0.1', '-U', 'mensajeria_dev', '-d', 'cobros_db']
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+  pasarela:
+    image: mensajeria-esqueleto:dev
+    build: .
+    command: ['node', 'services/pasarela-mock/index.js']
+    restart: unless-stopped
+    environment:
+      PUERTO: 3005
+      FAIL_RATE: ${FAIL_RATE:-0.3}
+      LOST_REPLY_RATE: ${LOST_REPLY_RATE:-0.2}
+      HONOR_IDEMPOTENCY: ${HONOR_IDEMPOTENCY:-true}
+      LOST_FIRST_REPLY: ${LOST_FIRST_REPLY:-false}
+    ports: ['3005:3005']
+    healthcheck:
+      <<: *chequeo-http
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:3005/health']
+
+  envios:
+    <<: *servicio
+    command: ['node', 'services/envios/index.js']
+    environment:
+      <<: *postgres-dev
+      REDIS_URL: redis://redis:6379
+      PUERTO: 3001
+    ports: ['3001:3001']
+    healthcheck:
+      <<: *chequeo-http
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:3001/health']
+
+  asignacion:
+    <<: *servicio
+    command: ['node', 'services/asignacion/index.js']
+    environment:
+      <<: *postgres-dev
+      REDIS_URL: redis://redis:6379
+      PUERTO: 3002
+    # Sin puerto publicado en el host: así `--scale asignacion=3` no choca por el puerto
+    healthcheck:
+      <<: *chequeo-http
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:3002/health']
+
+  cobros:
+    <<: *servicio
+    command: ['node', 'services/cobros/index.js']
+    environment:
+      <<: *postgres-dev
+      REDIS_URL: redis://redis:6379
+      PUERTO: 3003
+      PASARELA_URL: http://pasarela:3005
+    ports: ['3003:3003']
+    healthcheck:
+      <<: *chequeo-http
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:3003/health']
+
+  notificaciones:
+    <<: *servicio
+    command: ['node', 'services/notificaciones/index.js']
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      REDIS_URL: redis://redis:6379
+      PUERTO: 3004
+    ports: ['3004:3004']
+    healthcheck:
+      <<: *chequeo-http
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:3004/health']
+
+volumes:
+  redis-datos:
+  postgres-datos:
